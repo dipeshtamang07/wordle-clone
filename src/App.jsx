@@ -41,7 +41,7 @@ const App = () => {
       .then(text => {
         const wordsArray = text.split('\n').map(word => word.trim()).filter(word => word.length > 0);
         setWordBank(wordsArray);
-        // setSelectedWord(wordsArray[Math.floor(Math.random() * wordsArray.length)]);
+        setSelectedWord(wordsArray[Math.floor(Math.random() * wordsArray.length)]);
         setIsLoading(false);
       })
       .catch(error => console.error('Error fetching word bank:', error));
