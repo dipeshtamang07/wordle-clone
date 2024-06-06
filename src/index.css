@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Karnak"; /* Replace with your desired font name */
+  src: url("./assets/fonts/karnak.woff2") format("woff2"); /* Adjust path and format */
+  font-weight: 900; /* Add other weights as needed, e.g., 700 for bold */
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
