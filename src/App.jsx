@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphabetic } from "./utils";
+import { getLetterCount, isAlphabetic } from "./utils";
 import Navbar from "./components/Navbar";
 import Row from "./components/Row";
 import Keyboard from "./components/Keyboard";
@@ -11,9 +11,9 @@ const defaultBoard = new Array(6).fill(
 );
 
 const App = () => {
-  const [wordBank, setWordBank] = useState(["apple", "react", "tanga", "mango"]);
+  const [wordBank, setWordBank] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedWord, setSelectedWord] = useState("soggy");
+  const [selectedWord, setSelectedWord] = useState("react");
   const [board, setBoard] = useState(defaultBoard);
   const [currentRowIndex, setCurrentRowIndex] = useState(0);
   const [currentCellIndex, setCurrentCellIndex] = useState(0);
@@ -96,6 +96,23 @@ const App = () => {
         if (selectedWord.includes(item.letter)) {
           item.bg = "#C9B458";
           keyColorMapCopy.almost.push(item.letter.toLowerCase());
+
+          // Check if the letter is already accounted for
+          const letterCountInSelectedWord = getLetterCount(selectedWord, item.letter);
+
+          // Generating sliced word till the index (0, index) 
+          // E.g. if word was apple and current index is 2
+          // then the sliced word would be ap
+          const currentRow = boardCopy[currentRowIndex];
+          const slicedCurrentRow = currentRow.slice(0, index);
+          const word = slicedCurrentRow.reduce((acc, curr) => {
+            return acc + curr.letter;
+          }, "");
+
+          const currentLetterCount = getLetterCount(word, item.letter);
+          if (currentLetterCount >= letterCountInSelectedWord) {
+            item.bg = "#787C7E"
+          }
         } else {
           item.bg = "#787C7E";
           keyColorMapCopy.incorrect.push(item.letter.toLowerCase());
