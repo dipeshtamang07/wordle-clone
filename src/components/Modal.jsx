@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-// import { IoClose } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
+import { cn } from "../lib";
 
 const dropIn = {
   hidden: {
@@ -23,33 +24,44 @@ const dropIn = {
   },
 };
 
-function Backdrop({ children }) {
-    return (
-      <motion.div
-          className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-black/50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-      >
-          {children}
-      </motion.div>
-    )
-  }
-
-function Modal({ children, handleClose }) {
+function Backdrop({ children, handleClose }) {
   return (
-    <Backdrop>
+    <motion.div
+      className="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-black/50"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={handleClose}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function Modal({
+  children,
+  className = "",
+  handleClose = () => {},
+  allowManualClose = true,
+}) {
+  return (
+    <Backdrop handleClose={handleClose}>
       <motion.div
-        className="w-[22rem] rounded-lg p-8 bg-white relative border-2 border-black"
+        className={cn(
+          "w-[20rem] md:w-[24rem] rounded-lg p-8 bg-white relative border-2 border-black",
+          className
+        )}
         variants={dropIn}
         initial="hidden"
         animate="visible"
         exit="exit"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* <button className="absolute top-0 right-0 m-2" onClick={handleClose}>
+        {allowManualClose && (
+          <button className="absolute top-0 right-0 m-2" onClick={handleClose}>
             <IoClose size={25} />
-        </button> */}
+          </button>
+        )}
         {children}
       </motion.div>
     </Backdrop>

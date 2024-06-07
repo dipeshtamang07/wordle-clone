@@ -164,6 +164,8 @@ const App = () => {
       {/* TODO: Remove - only for debugging */}
       {/* <p>currentRowIndex: {currentRowIndex}</p>
       <p>currentCellIndex: {currentCellIndex}</p> */}
+      {/* <button onClick={() => setGameWon(true)}>Game Won</button>
+      <button onClick={() => setGameOver(true)}>Game Over</button> */}
       <div className="flex flex-col gap-1.5 items-center py-3">
         {/* Board */}
         {board.map((row, i) => {
@@ -192,10 +194,10 @@ const App = () => {
         {/* Game Won Modal */}
         <AnimatePresence initial={false}>
           {gameWon && (
-            <Modal handleClose={() => setGameWon(false)}>
+            <Modal allowManualClose={false}>
               <div className="flex flex-col items-center">
                 <h1 className="text-2xl mb-4">Hooray!!</h1>
-                <p className="text-xl font-light mb-4">
+                <p className="text-xl font-light mb-4 text-center">
                   You guessed the word correctly
                 </p>
                 <ul className="flex gap-2 items-center justify-center mb-6">
@@ -223,7 +225,7 @@ const App = () => {
         {/* Game Over Modal */}
         <AnimatePresence initial={false}>
           {gameOver && (
-            <Modal handleClose={() => setGameOver(false)}>
+            <Modal allowManualClose={false}>
               <div className="flex flex-col items-center">
                 <h1 className="text-2xl mb-4">Better Luck next time!</h1>
                 <p className="text-xl font-light mb-4">The word was:</p>
