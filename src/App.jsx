@@ -177,8 +177,8 @@ const App = () => {
       {/* TODO: Remove - only for debugging */}
       {/* <p>currentRowIndex: {currentRowIndex}</p>
       <p>currentCellIndex: {currentCellIndex}</p> */}
-      <button onClick={() => setGameWon(true)}>Game Won</button>
-      <button onClick={() => setGameOver(true)}>Game Over</button>
+      {/* <button onClick={() => setGameWon(true)}>Game Won</button>
+      <button onClick={() => setGameOver(true)}>Game Over</button> */}
       <div className="flex flex-col gap-1.5 items-center py-3">
         {/* Board */}
         {board.map((row, i) => {
