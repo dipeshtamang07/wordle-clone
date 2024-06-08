@@ -3,8 +3,8 @@ import { getLetterCount, isAlphabetic } from "./utils";
 import Navbar from "./components/Navbar";
 import Row from "./components/Row";
 import Keyboard from "./components/Keyboard";
-import { AnimatePresence } from "framer-motion";
-import Modal from "./components/Modal";
+import GameWonModal from "./components/GameWonModal";
+import GameOverModal from "./components/GameOverModal";
 
 const defaultBoard = new Array(6).fill(
   new Array(5).fill({ letter: null, bg: "#ffffff" })
@@ -36,28 +36,26 @@ const App = () => {
   }, [currentCellIndex, currentRowIndex]);
 
   useEffect(() => {
-    fetch('/word-bank.txt')
-      .then(response => response.text())
-      .then(text => {
-        const wordsArray = text.split('\n').map(word => word.trim()).filter(word => word.length > 0);
+    fetch("/word-bank.txt")
+      .then((response) => response.text())
+      .then((text) => {
+        const wordsArray = text
+          .split("\n")
+          .map((word) => word.trim())
+          .filter((word) => word.length > 0);
         setWordBank(wordsArray);
-        setSelectedWord(wordsArray[Math.floor(Math.random() * wordsArray.length)]);
+        setSelectedWord(
+          wordsArray[Math.floor(Math.random() * wordsArray.length)]
+        );
         setIsLoading(false);
       })
-      .catch(error => console.error('Error fetching word bank:', error));
+      .catch((error) => console.error("Error fetching word bank:", error));
   }, []);
 
   const updateBoardLetter = (rowIndex, cellIndex, value) => {
     const boardCopy = JSON.parse(JSON.stringify(board));
     boardCopy[rowIndex][cellIndex] = { letter: value, bg: "#ffffff" };
     setBoard(boardCopy);
-  };
-
-  const resetBoardRow = (rowIndex) => {
-    const boardCopy = JSON.parse(JSON.stringify(board));
-    boardCopy[rowIndex] = new Array(5).fill({ letter: null, bg: "#ffffff" });
-    setBoard(boardCopy);
-    setCurrentCellIndex(0);
   };
 
   const resetGame = () => {
@@ -85,8 +83,6 @@ const App = () => {
       if (!wordBank.includes(word)) {
         setAnimationRowIndex(currentRowIndex);
         setAnimationType("shake");
-        // alert("Word not found!");
-        // resetBoardRow(currentRowIndex);
         return;
       }
 
@@ -98,9 +94,12 @@ const App = () => {
           keyColorMapCopy.almost.push(item.letter.toLowerCase());
 
           // Check if the letter is already accounted for
-          const letterCountInSelectedWord = getLetterCount(selectedWord, item.letter);
+          const letterCountInSelectedWord = getLetterCount(
+            selectedWord,
+            item.letter
+          );
 
-          // Generating sliced word till the index (0, index) 
+          // Generating sliced word till the index (0, index)
           // E.g. if word was apple and current index is 2
           // then the sliced word would be ap
           const currentRow = boardCopy[currentRowIndex];
@@ -111,7 +110,7 @@ const App = () => {
 
           const currentLetterCount = getLetterCount(word, item.letter);
           if (currentLetterCount >= letterCountInSelectedWord) {
-            item.bg = "#787C7E"
+            item.bg = "#787C7E";
           }
         } else {
           item.bg = "#787C7E";
@@ -137,8 +136,6 @@ const App = () => {
       }
 
       if (currentRowIndex > 4) {
-        // alert("game over!");
-        // resetGame();
         setTimeout(() => {
           setGameOver(true);
         }, 2500);
@@ -169,15 +166,12 @@ const App = () => {
 
   if (isLoading) {
     // TODO: ADD LOADER
-    return null
+    return null;
   }
 
   return (
     <div>
       <Navbar />
-      {/* <h3>{gameWon.toString()}</h3> */}
-      {/* <h4>{selectedWord}</h4> */}
-      {/* <button onClick={() => resetGame()}>Click</button> */}
       {/* TODO: Remove - only for debugging */}
       {/* <p>currentRowIndex: {currentRowIndex}</p>
       <p>currentCellIndex: {currentCellIndex}</p> */}
@@ -209,64 +203,14 @@ const App = () => {
         <Keyboard onKeyPress={handleKeyPress} keyColorMap={keyColorMap} />
 
         {/* Game Won Modal */}
-        <AnimatePresence initial={false}>
-          {gameWon && (
-            <Modal allowManualClose={false}>
-              <div className="flex flex-col items-center">
-                <h1 className="text-2xl mb-4">Hooray!!</h1>
-                <p className="text-xl font-light mb-4 text-center">
-                  You guessed the word correctly
-                </p>
-                <ul className="flex gap-2 items-center justify-center mb-6">
-                  {selectedWord.split("").map((letter, index) => (
-                    <li
-                      className="flex items-center justify-center w-10 h-10 p-4 bg-green-500 text-white uppercase"
-                      key={index}
-                    >
-                      {letter}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  className="py-2 px-4 rounded-lg border-2 border-black"
-                  onClick={resetGame}
-                >
-                  Play Again
-                </button>
-              </div>
-            </Modal>
-          )}
-        </AnimatePresence>
+        {gameWon && (
+          <GameWonModal selectedWord={selectedWord} onPlayAgain={resetGame} />
+        )}
 
         {/* Game Over Modal */}
-        <AnimatePresence initial={false}>
-          {gameOver && (
-            <Modal allowManualClose={false}>
-              <div className="flex flex-col items-center">
-                <h1 className="text-2xl mb-4">Better Luck next time!</h1>
-                <p className="text-xl font-light mb-4">The word was:</p>
-                <ul className="flex gap-2 items-center justify-center mb-6">
-                  {selectedWord.split("").map((letter, index) => (
-                    <li
-                      className="flex items-center justify-center w-10 h-10 p-4 border border-black text-black uppercase"
-                      key={index}
-                    >
-                      {letter}
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  className="py-2 px-4 rounded-lg border-2 border-black"
-                  onClick={resetGame}
-                >
-                  Play Again
-                </button>
-              </div>
-            </Modal>
-          )}
-        </AnimatePresence>
+        {gameOver && (
+          <GameOverModal selectedWord={selectedWord} onPlayAgain={resetGame} />
+        )}
       </div>
     </div>
   );
