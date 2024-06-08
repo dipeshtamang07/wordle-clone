@@ -5,6 +5,8 @@ import Row from "./components/Row";
 import Keyboard from "./components/Keyboard";
 import GameWonModal from "./components/GameWonModal";
 import GameOverModal from "./components/GameOverModal";
+import { confettiConfig } from "./constants/confetti.config";
+import Confetti from "react-dom-confetti";
 
 const defaultBoard = new Array(6).fill(
   new Array(5).fill({ letter: null, bg: "#ffffff" })
@@ -175,8 +177,8 @@ const App = () => {
       {/* TODO: Remove - only for debugging */}
       {/* <p>currentRowIndex: {currentRowIndex}</p>
       <p>currentCellIndex: {currentCellIndex}</p> */}
-      {/* <button onClick={() => setGameWon(true)}>Game Won</button>
-      <button onClick={() => setGameOver(true)}>Game Over</button> */}
+      <button onClick={() => setGameWon(true)}>Game Won</button>
+      <button onClick={() => setGameOver(true)}>Game Over</button>
       <div className="flex flex-col gap-1.5 items-center py-3">
         {/* Board */}
         {board.map((row, i) => {
@@ -201,6 +203,13 @@ const App = () => {
 
         {/* Keyboard */}
         <Keyboard onKeyPress={handleKeyPress} keyColorMap={keyColorMap} />
+
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none fixed inset-0 overflow-hidden flex justify-center z-[100]"
+        >
+          <Confetti active={gameWon} config={confettiConfig} />
+        </div>
 
         {/* Game Won Modal */}
         {gameWon && (
