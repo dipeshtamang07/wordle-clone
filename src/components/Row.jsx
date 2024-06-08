@@ -1,4 +1,4 @@
-import { useEffect, memo, useLayoutEffect } from "react";
+import { useEffect, memo } from "react";
 import { useAnimate } from "framer-motion";
 import { cn } from "../lib";
 
@@ -12,7 +12,7 @@ const Row = ({
 }) => {
   const [scope, animate] = useAnimate();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (startSubmitAnimation) {
       row.forEach((item, index) => {
         animate(
@@ -27,7 +27,7 @@ const Row = ({
     }
   }, [startSubmitAnimation]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (startRejectAnimation) {
       animate(
         scope.current,
@@ -45,7 +45,7 @@ const Row = ({
     }
   }, [startRejectAnimation]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (startPopAnimation) {
       animate(
         `li:nth-child(${currentCellIndex})`,
