@@ -1,8 +1,25 @@
-# React + Vite
+# Wordle Infinity
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Play Wordle - Infinity! Enjoy endless Wordle puzzles and sharpen your word skills with this infinite version of the popular game.
 
-Currently, two official plugins are available:
+# Tech Stack
+- React
+- Tailwind CSS
+- Framer Motion
+- Vite
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Setup
+
+## Step 1
+Install the dependencies
+
+```bash
+$ npm install
+```
+
+## Step 2
+Run the development server
+
+```bash
+$ npm run dev
+```
