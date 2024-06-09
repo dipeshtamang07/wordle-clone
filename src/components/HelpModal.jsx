@@ -4,7 +4,7 @@ import Modal from "./Modal";
 const HelpModal = ({ onClose }) => {
   return (
     <AnimatePresence initial={false}>
-      <Modal handleClose={onClose} className="w-[21rem] md:w-[30rem]">
+      <Modal handleClose={onClose} className="w-[21rem] md:w-[30rem] dark:text-white">
         <h1 className="text-3xl md:text-4xl font-karnak mb-2">How to play?</h1>
         <p className="text-2xl md:text-3xl mb-4 font-light">Guess the Wordle in 6 tries.</p>
         <ul className="list-disc mb-4">

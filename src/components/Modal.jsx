@@ -48,7 +48,7 @@ function Modal({
     <Backdrop handleClose={handleClose}>
       <motion.div
         className={cn(
-          "w-[20rem] md:w-[24rem] rounded-lg p-8 bg-white relative border-2 border-black",
+          "w-[20rem] md:w-[24rem] rounded-lg p-8 bg-white dark:bg-gray-900 relative border-2 border-black dark:border-white",
           className
         )}
         variants={dropIn}
@@ -58,7 +58,7 @@ function Modal({
         onClick={(e) => e.stopPropagation()}
       >
         {allowManualClose && (
-          <button className="absolute top-0 right-0 m-2" onClick={handleClose}>
+          <button className="absolute top-0 right-0 m-2 dark:text-white" onClick={handleClose}>
             <IoClose size={25} />
           </button>
         )}

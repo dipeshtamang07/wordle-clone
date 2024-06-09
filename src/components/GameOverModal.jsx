@@ -7,12 +7,12 @@ const GameOverModal = ({ selectedWord, onPlayAgain}) => {
     <AnimatePresence initial={false}>
         <Modal allowManualClose={false}>
           <div className="flex flex-col items-center">
-            <h1 className="text-2xl mb-4">Better Luck next time!</h1>
-            <p className="text-xl font-light mb-4">The word was:</p>
+            <h1 className="text-2xl mb-4 dark:text-white">Better Luck next time!</h1>
+            <p className="text-xl font-light mb-4 dark:text-white">The word was:</p>
             <ul className="flex gap-2 items-center justify-center mb-6">
               {selectedWord.split("").map((letter, index) => (
                 <li
-                  className="flex items-center justify-center w-10 h-10 p-4 border border-black text-black uppercase"
+                  className="flex items-center justify-center w-10 h-10 p-4 text-2xl font-extrabold border border-black text-black dark:border-white dark:text-white uppercase"
                   key={index}
                 >
                   {letter}
@@ -21,7 +21,7 @@ const GameOverModal = ({ selectedWord, onPlayAgain}) => {
             </ul>
 
             <button
-              className="py-2 px-4 rounded-lg border-2 border-black"
+              className="py-2 px-4 rounded-lg border-2 border-black dark:border-white dark:text-white"
               onClick={onPlayAgain}
             >
               Play Again

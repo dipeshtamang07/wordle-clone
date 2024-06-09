@@ -66,9 +66,9 @@ const Row = ({
           <li
             key={index}
             className={cn(
-              "flex w-14 h-14 justify-center items-center border-gray-300 border-2 p-4 text-4xl font-extrabold uppercase",
-              item.letter && "border-gray-600",
-              item.bg === "#ffffff" ? "bg-white text-black" : "text-white border-0"
+              "flex w-14 h-14 justify-center items-center border-gray-300 dark:border-gray-800 border-2 p-4 text-4xl font-extrabold uppercase",
+              item.letter && "border-gray-600 dark:border-gray-300",
+              item.bg === "#ffffff" ? "text-black dark:text-white" : "text-white border-0"
             )}
           >
             {item.letter}
