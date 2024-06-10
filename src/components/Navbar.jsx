@@ -17,7 +17,7 @@ const Navbar = () => {
     <>
       <header className="py-2 px-4 md:px-8 flex justify-between items-center border-b dark:border-gray-800">
         <div className="w-20">
-          <button className="dark:text-white">
+          <button aria-label="Hamburger Menu Icon" className="dark:text-white">
             <IoMenu size={32} />
           </button>
         </div>
@@ -25,10 +25,11 @@ const Navbar = () => {
           Wordle
         </h1>
         <menu className="w-20 flex items-center justify-end gap-4">
-            <button onClick={toggleHelpModal} className="dark:text-white">
+            <button aria-label="Open Help Modal" onClick={toggleHelpModal} className="dark:text-white">
               <IoMdHelpCircleOutline size={32} />
             </button>
             <button
+              aria-label="Mode Toggle"
               className="w-10 outline-0 dark:text-white"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               tabIndex={-1}
