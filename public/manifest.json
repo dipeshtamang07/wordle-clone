@@ -1,0 +1,48 @@
+{
+  "name": "Wordle - Infinity",
+  "short_name": "WordleInfinity",
+  "description": "Play Wordle - Infinity! Enjoy endless Wordle puzzles and sharpen your word skills with this infinite version of the popular game.",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "app-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "app-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/wi-ss-light-wide.png",
+      "type": "image/png",
+      "sizes": "1366x680",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/wi-ss-dark-wide.png",
+      "type": "image/png",
+      "sizes": "1366x680",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshots/wi-ss-light-narrow.png",
+      "type": "image/png",
+      "sizes": "904x1512",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/wi-ss-dark-narrow.png",
+      "type": "image/png",
+      "sizes": "904x1512",
+      "form_factor": "narrow"
+    }
+  ]
+}
