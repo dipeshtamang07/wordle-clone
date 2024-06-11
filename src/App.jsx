@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { getLetterCount, isAlphabetic } from "./utils";
+import { getRowBgColors, isAlphabetic } from "./utils";
 import Navbar from "./components/Navbar";
 import Row from "./components/Row";
 import Keyboard from "./components/Keyboard";
@@ -78,11 +78,11 @@ const App = () => {
     key = key.toLowerCase();
 
     if (key === "enter" && currentCellIndex === 5) {
-      let word = board[currentRowIndex].reduce((acc, curr) => {
+      let guessedWord = board[currentRowIndex].reduce((acc, curr) => {
         return acc + curr.letter;
       }, "");
 
-      if (!wordBank.includes(word)) {
+      if (!wordBank.includes(guessedWord)) {
         setAnimationRowIndex(currentRowIndex);
         setAnimationType("shake");
         return;
@@ -90,37 +90,22 @@ const App = () => {
 
       const boardCopy = JSON.parse(JSON.stringify(board));
       const keyColorMapCopy = JSON.parse(JSON.stringify(keyColorMap));
+
+      const rowBgColors = getRowBgColors(selectedWord, guessedWord);
+
       boardCopy[currentRowIndex].forEach((item, index) => {
-        if (selectedWord.includes(item.letter)) {
-          item.bg = "#C9B458";
-          keyColorMapCopy.almost.push(item.letter.toLowerCase());
+        item.bg = rowBgColors[index];
 
-          // Check if the letter is already accounted for
-          const letterCountInSelectedWord = getLetterCount(
-            selectedWord,
-            item.letter
-          );
-
-          // Generating sliced word till the index (0, index)
-          // E.g. if word was apple and current index is 2
-          // then the sliced word would be ap
-          const currentRow = boardCopy[currentRowIndex];
-          const slicedCurrentRow = currentRow.slice(0, index);
-          const word = slicedCurrentRow.reduce((acc, curr) => {
-            return acc + curr.letter;
-          }, "");
-
-          const currentLetterCount = getLetterCount(word, item.letter);
-          if (currentLetterCount >= letterCountInSelectedWord) {
-            item.bg = "#787C7E";
-          }
-        } else {
-          item.bg = "#787C7E";
-          keyColorMapCopy.incorrect.push(item.letter.toLowerCase());
-        }
-        if (selectedWord[index] === item.letter) {
-          item.bg = "#6AAA64";
-          keyColorMapCopy.correct.push(item.letter.toLowerCase());
+        switch (rowBgColors[index]) {
+          case "#6AAA64":
+            keyColorMapCopy.correct.push(item.letter.toLowerCase());
+            break;
+          case "#C9B458":
+            keyColorMapCopy.almost.push(item.letter.toLowerCase());
+            break;
+          default:
+            keyColorMapCopy.incorrect.push(item.letter.toLowerCase());
+            break;
         }
       });
       setBoard(boardCopy);
@@ -130,7 +115,7 @@ const App = () => {
       setAnimationType("flip");
 
       // Win
-      if (word === selectedWord) {
+      if (guessedWord === selectedWord) {
         setTimeout(() => {
           setGameWon(true);
         }, 2500);
