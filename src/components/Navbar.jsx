@@ -2,6 +2,7 @@ import { IoMenu } from "react-icons/io5";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 import { MdWbSunny } from "react-icons/md";
+import { FaGithub } from "react-icons/fa";
 import HelpModal from "./HelpModal";
 import { useState } from "react";
 import { useTheme } from "../providers/ThemeProvider";
@@ -25,6 +26,9 @@ const Navbar = () => {
           Wordle
         </h1>
         <menu className="w-20 flex items-center justify-end gap-4">
+            <a href="https://github.com/dipeshtamang07/wordle-clone" target="_blank" className="dark:text-white">
+              <FaGithub size={26} />
+            </a>
             <button aria-label="Open Help Modal" onClick={toggleHelpModal} className="dark:text-white">
               <IoMdHelpCircleOutline size={32} />
             </button>
